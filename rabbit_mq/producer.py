@@ -6,8 +6,6 @@ from db.create_contacts import create_contacts
 from db.models import Contacts
 from db.connect_db import connect
 
-NUMBER_CONTACTS = 5
-
 credentials = pika.PlainCredentials("guest", "guest")
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host="localhost", port=5672, credentials=credentials)
@@ -19,8 +17,8 @@ channel.queue_declare(queue="contacts", durable=True)
 channel.queue_bind(exchange="hw8", queue="contacts")
 
 
-def main():
-    create_contacts(NUMBER_CONTACTS)
+def main(number_contacts: int = 15):
+    create_contacts(number_contacts)
     contacts = Contacts.objects()
     for contact in contacts:
         message = {

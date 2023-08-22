@@ -5,10 +5,8 @@ import faker
 
 fake_data = faker.Faker("en_GB")
 
-NUMBER_CONTACTS = 5
 
-
-def create_contacts(number_contacts):
+def create_contacts(number_contacts: int = 10):
     Contacts.objects.delete()
     for _ in range(number_contacts):
         fullname = fake_data.name()
@@ -19,4 +17,4 @@ def create_contacts(number_contacts):
 
 
 if __name__ == "__main__":
-    create_contacts(NUMBER_CONTACTS)
+    create_contacts()
